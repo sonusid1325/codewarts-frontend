@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { LogOut, ShieldCheck, Lock, Play, BookOpen, Wand2, Zap } from "lucide-react";
+import { LogOut, CheckCircle2, Lock, Play, LayoutList, Terminal, Wifi, CircleDot, Loader2 } from "lucide-react";
 
 interface Task {
   id: number;
@@ -84,8 +84,8 @@ export default function Dashboard() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-zinc-400 font-mono">
         <div className="flex flex-col items-center gap-4">
-          <Wand2 className="w-10 h-10 text-amber-500 animate-spin" />
-          <span className="text-sm tracking-widest animate-pulse">ESTABLISHING SECURE OWL LINK...</span>
+          <Loader2 className="w-10 h-10 text-amber-500 animate-spin" />
+          <span className="text-sm tracking-widest animate-pulse">LOADING CURRICULUM...</span>
         </div>
       </div>
     );
@@ -105,7 +105,7 @@ export default function Dashboard() {
       {/* Top Navbar */}
       <nav className="border-b border-zinc-900 bg-zinc-950/80 backdrop-blur-md sticky top-0 z-30 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Wand2 className="w-5 h-5 text-amber-500 animate-pulse" />
+          <Terminal className="w-5 h-5 text-amber-500" />
           <span className="font-bold tracking-tight text-white">
             Code<span className="text-amber-500">warts</span>
           </span>
@@ -113,8 +113,8 @@ export default function Dashboard() {
         
         <div className="flex items-center gap-6">
           <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-zinc-400 border border-zinc-800 bg-zinc-900/40 px-3 py-1.5 rounded-lg">
-            <Zap className="w-3.5 h-3.5 text-amber-500" />
-            <span>GRID LINK: </span>
+            <Wifi className="w-3.5 h-3.5 text-amber-500" />
+            <span>SESSION: </span>
             <span className="text-amber-400 uppercase tracking-widest animate-pulse">CONNECTED (512MB)</span>
           </div>
 
@@ -163,7 +163,7 @@ export default function Dashboard() {
         {/* Chapters Grid */}
         <div className="space-y-6">
           <div className="flex items-center gap-2 border-b border-zinc-900 pb-3">
-            <BookOpen className="w-5 h-5 text-amber-500" />
+            <LayoutList className="w-5 h-5 text-amber-500" />
             <h3 className="text-lg font-bold tracking-tight text-white uppercase">Curriculum Chapters</h3>
           </div>
 
@@ -192,11 +192,11 @@ export default function Dashboard() {
                       </span>
                       {isCompleted ? (
                         <span className="text-xs font-mono text-amber-400 flex items-center gap-1">
-                          <ShieldCheck className="w-3.5 h-3.5" /> PASSED
+                          <CheckCircle2 className="w-3.5 h-3.5" /> PASSED
                         </span>
                       ) : isActive ? (
                         <span className="text-xs font-mono text-purple-400 flex items-center gap-1 animate-pulse">
-                          <Play className="w-3 h-3 fill-current" /> ACTIVE SPELL
+                          <CircleDot className="w-3 h-3" /> ACTIVE
                         </span>
                       ) : (
                         <span className="text-xs font-mono text-zinc-650 flex items-center gap-1">

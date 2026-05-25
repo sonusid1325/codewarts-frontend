@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { ShieldAlert, Cpu, Trophy, ArrowRight, LayoutGrid, Terminal as TerminalIcon } from "lucide-react";
+import { AlertCircle, Cpu, Trophy, ChevronRight, LayoutGrid, Terminal as TerminalIcon } from "lucide-react";
 import Terminal from "@/components/Terminal";
 import TaskPanel from "@/components/TaskPanel";
 import dynamic from "next/dynamic";
@@ -149,7 +149,7 @@ function GameContent() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-zinc-400 font-mono p-6">
         <div className="max-w-md w-full bg-zinc-900 border border-zinc-800 p-8 rounded-2xl flex flex-col items-center text-center">
-          <ShieldAlert className="w-12 h-12 text-red-500 mb-4 animate-pulse" />
+          <AlertCircle className="w-12 h-12 text-red-500 mb-4 animate-pulse" />
           <h3 className="text-lg font-bold text-white mb-2 uppercase">Datalink Connection Down</h3>
           <p className="text-zinc-500 text-sm mb-6 leading-relaxed">{error}</p>
           <Link
@@ -227,7 +227,7 @@ function GameContent() {
               className="w-full bg-gradient-to-r from-amber-500 to-purple-600 hover:from-amber-400 hover:to-purple-500 text-zinc-950 font-bold py-3 rounded-xl transition-all duration-200 shadow-[0_4px_20px_rgba(245,158,11,0.2)] flex items-center justify-center gap-2 cursor-pointer"
             >
               Continue to Mainframe
-              <ArrowRight className="w-4 h-4" />
+              <ChevronRight className="w-4 h-4" />
             </button>
           </div>
         </div>

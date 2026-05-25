@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Wand2, Scroll, BookOpen, Play, Zap } from "lucide-react";
+import { Terminal, Users, Box, SquareTerminal, ClipboardCheck, Play, Wifi } from "lucide-react";
 
 export default function Home() {
   const [typedText, setTypedText] = useState("");
@@ -64,7 +64,7 @@ export default function Home() {
       {/* Navigation Header */}
       <header className="border-b border-zinc-900 bg-zinc-950/80 backdrop-blur-md px-6 py-4 flex items-center justify-between z-20 sticky top-0">
         <div className="flex items-center gap-2">
-          <Wand2 className="w-6 h-6 text-amber-500 animate-pulse" />
+          <Terminal className="w-6 h-6 text-amber-500" />
           <span className="font-bold tracking-tight text-white text-lg">
             Code<span className="text-amber-500">warts</span>
           </span>
@@ -86,11 +86,11 @@ export default function Home() {
           <div className="md:col-span-6 space-y-6 text-center md:text-left">
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-500/30 bg-amber-500/5 text-amber-400 text-xs font-mono tracking-wider uppercase font-semibold">
-                <Zap className="w-3.5 h-3.5 animate-pulse text-amber-500" /> Chamber of Shells Protocol
+                <Wifi className="w-3.5 h-3.5 text-amber-500" /> Live Shell Protocol
               </div>
               {userCount !== null && (
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-400 text-xs font-mono tracking-wider uppercase font-semibold shadow-[0_0_15px_rgba(168,85,247,0.1)]">
-                  <Wand2 className="w-3.5 h-3.5 text-purple-400 animate-pulse" /> {userCount} Wizards Registered
+                  <Users className="w-3.5 h-3.5 text-purple-400" /> {userCount} Users Enrolled
                 </div>
               )}
             </div>
@@ -143,7 +143,7 @@ export default function Home() {
         <div className="grid sm:grid-cols-3 gap-6 mt-20 w-full">
           <div className="bg-zinc-900/30 border border-zinc-900 rounded-2xl p-6 space-y-3">
             <div className="w-10 h-10 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-center justify-center text-amber-500">
-              <BookOpen className="w-5 h-5" />
+              <Box className="w-5 h-5" />
             </div>
             <h3 className="font-bold text-white text-base">Isolated Magic Sandbox</h3>
             <p className="text-zinc-500 text-sm leading-relaxed">
@@ -153,7 +153,7 @@ export default function Home() {
 
           <div className="bg-zinc-900/30 border border-zinc-900 rounded-2xl p-6 space-y-3">
             <div className="w-10 h-10 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-center justify-center text-amber-500">
-              <Wand2 className="w-5 h-5 animate-pulse" />
+              <SquareTerminal className="w-5 h-5" />
             </div>
             <h3 className="font-bold text-white text-base">Wand Datalink (TTY)</h3>
             <p className="text-zinc-500 text-sm leading-relaxed">
@@ -163,7 +163,7 @@ export default function Home() {
 
           <div className="bg-zinc-900/30 border border-zinc-900 rounded-2xl p-6 space-y-3">
             <div className="w-10 h-10 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-center justify-center text-amber-500">
-              <Scroll className="w-5 h-5" />
+              <ClipboardCheck className="w-5 h-5" />
             </div>
             <h3 className="font-bold text-white text-base">Incantation Checkers</h3>
             <p className="text-zinc-500 text-sm leading-relaxed">

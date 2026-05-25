@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ShieldCheck, ShieldAlert, Wand2, ArrowRight } from "lucide-react";
+import { CheckCircle2, AlertCircle, MailCheck, ArrowRight } from "lucide-react";
 
 function VerifyContent() {
   const router = useRouter();
@@ -101,7 +101,7 @@ function VerifyContent() {
       {/* Header */}
       <div className="flex flex-col items-center mb-8">
         <div className="w-12 h-12 bg-amber-500/10 border border-amber-500/30 rounded-xl flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(245,158,11,0.15)] animate-pulse">
-          <Wand2 className="w-6 h-6 text-amber-500" />
+          <MailCheck className="w-6 h-6 text-amber-500" />
         </div>
         <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
           Code<span className="text-amber-500">warts</span>
@@ -112,7 +112,7 @@ function VerifyContent() {
       {/* Success Alert */}
       {success && (
         <div className="mb-6 p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg text-amber-400 text-sm flex items-center gap-2">
-          <ShieldCheck className="w-4 h-4 flex-shrink-0 text-amber-400 animate-pulse" />
+          <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-amber-400 animate-pulse" />
           <span>{success}</span>
         </div>
       )}
@@ -120,7 +120,7 @@ function VerifyContent() {
       {/* Error Alert */}
       {error && (
         <div className="mb-6 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm flex items-center gap-2">
-          <ShieldAlert className="w-4 h-4 flex-shrink-0" />
+          <AlertCircle className="w-4 h-4 flex-shrink-0" />
           <span>{error}</span>
         </div>
       )}

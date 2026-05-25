@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ShieldAlert, ArrowRight, Wand2 } from "lucide-react";
+import { AlertCircle, ArrowRight, Terminal } from "lucide-react";
 
 export default function Login() {
   const router = useRouter();
@@ -75,7 +75,7 @@ export default function Login() {
         {/* Header */}
         <div className="flex flex-col items-center mb-8">
           <div className="w-12 h-12 bg-amber-500/10 border border-amber-500/30 rounded-xl flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(245,158,11,0.15)] animate-pulse">
-            <Wand2 className="w-6 h-6 text-amber-500" />
+            <Terminal className="w-6 h-6 text-amber-500" />
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
             Code<span className="text-amber-500">warts</span>
@@ -86,7 +86,7 @@ export default function Login() {
         {/* Error alert */}
         {error && (
           <div className="mb-6 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm flex items-center gap-2">
-            <ShieldAlert className="w-4 h-4 flex-shrink-0" />
+            <AlertCircle className="w-4 h-4 flex-shrink-0" />
             <span>{error}</span>
           </div>
         )}
