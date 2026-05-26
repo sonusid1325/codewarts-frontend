@@ -26,8 +26,24 @@ function VerifyContent() {
     }
   }, [emailParam]);
 
+  // Restore cooldown from localStorage on mount
   useEffect(() => {
-    if (cooldown <= 0) return;
+    const storedExpiry = localStorage.getItem("verify_cooldown_expiry");
+    if (storedExpiry) {
+      const remaining = Math.ceil((parseInt(storedExpiry) - Date.now()) / 1000);
+      if (remaining > 0) {
+        setCooldown(remaining);
+      } else {
+        localStorage.removeItem("verify_cooldown_expiry");
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (cooldown <= 0) {
+      localStorage.removeItem("verify_cooldown_expiry");
+      return;
+    }
     const timer = setTimeout(() => setCooldown(cooldown - 1), 1000);
     return () => clearTimeout(timer);
   }, [cooldown]);
@@ -38,7 +54,10 @@ function VerifyContent() {
     setError("");
     setSuccess("");
 
-    if (code.length !== 6) {
+    const trimmedEmail = email.trim();
+    const trimmedCode = code.trim();
+
+    if (trimmedCode.length !== 6) {
       setError("Verification rune must be exactly 6 digits.");
       setLoading(false);
       return;
@@ -48,7 +67,7 @@ function VerifyContent() {
       const response = await fetch("/api/auth/verify-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, code }),
+        body: JSON.stringify({ email: trimmedEmail, code: trimmedCode }),
       });
 
       if (!response.ok) {
@@ -74,11 +93,13 @@ function VerifyContent() {
     setError("");
     setSuccess("");
 
+    const trimmedEmail = email.trim();
+
     try {
       const response = await fetch("/api/auth/resend-code", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email: trimmedEmail }),
       });
 
       if (!response.ok) {
@@ -88,7 +109,11 @@ function VerifyContent() {
 
       const data = await response.json();
       setSuccess(data.message || "Verification code resent.");
-      setCooldown(60); // 60s cooldown
+      
+      // Set cooldown and save expiry to localStorage
+      const cooldownSecs = 60;
+      setCooldown(cooldownSecs);
+      localStorage.setItem("verify_cooldown_expiry", (Date.now() + cooldownSecs * 1000).toString());
     } catch (err: any) {
       setError(err.message || "Failed to dispatch new verification rune.");
     } finally {
@@ -178,10 +203,10 @@ function VerifyContent() {
           <button
             onClick={handleResend}
             disabled={cooldown > 0 || resending}
-            className={`font-semibold transition-colors cursor-pointer ${
+            className={`font-semibold transition-colors ${
               cooldown > 0 || resending
                 ? "text-zinc-650 cursor-not-allowed"
-                : "text-amber-500 hover:text-amber-400"
+                : "text-amber-500 hover:text-amber-400 cursor-pointer"
             }`}
           >
             {cooldown > 0 ? `Resend Rune (${cooldown}s)` : "Dispatch New Rune"}

@@ -34,11 +34,17 @@ export default function Signup() {
     setError("");
     setSuccess(false);
 
+    const trimmedData = {
+      username: formData.username.trim(),
+      email: formData.email.trim(),
+      password: formData.password,
+    };
+
     try {
       const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(trimmedData),
       });
 
       if (!response.ok) {
@@ -48,7 +54,7 @@ export default function Signup() {
 
       setSuccess(true);
       setTimeout(() => {
-        router.push(`/verify?email=${encodeURIComponent(formData.email)}`);
+        router.push(`/verify?email=${encodeURIComponent(trimmedData.email)}`);
       }, 2000);
     } catch (err: any) {
       setError(err.message || "Registration failed. Username/Email may already be in use.");

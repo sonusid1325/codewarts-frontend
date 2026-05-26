@@ -31,23 +31,46 @@ export default function Login() {
     setLoading(true);
     setError("");
 
+    const trimmedData = {
+      username_or_email: formData.username_or_email.trim(),
+      password: formData.password,
+    };
+
     try {
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(trimmedData),
       });
 
       if (!response.ok) {
-        const errText = await response.text();
-        if (response.status === 403 && errText.toLowerCase().includes("verify")) {
-          setError("Email not verified. Redirecting to verification page...");
-          setTimeout(() => {
-            router.push(`/verify?email=${encodeURIComponent(formData.username_or_email)}`);
-          }, 1500);
-          return;
+        let emailToRedirect = trimmedData.username_or_email;
+        let errorMessage = "Invalid wand coordinates or password";
+
+        try {
+          const errData = await response.json();
+          if (response.status === 403) {
+            emailToRedirect = errData.email || emailToRedirect;
+            errorMessage = errData.error || "Email not verified. Redirecting to verification page...";
+            setError(errorMessage);
+            setTimeout(() => {
+              router.push(`/verify?email=${encodeURIComponent(emailToRedirect)}`);
+            }, 1500);
+            return;
+          }
+          errorMessage = errData.error || errorMessage;
+        } catch (parseErr) {
+          const errText = await response.text().catch(() => "");
+          if (response.status === 403 && errText.toLowerCase().includes("verify")) {
+            setError("Email not verified. Redirecting to verification page...");
+            setTimeout(() => {
+              router.push(`/verify?email=${encodeURIComponent(trimmedData.username_or_email)}`);
+            }, 1500);
+            return;
+          }
+          errorMessage = errText || errorMessage;
         }
-        throw new Error(errText || "Invalid wand coordinates or password");
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
