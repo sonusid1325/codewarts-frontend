@@ -61,9 +61,17 @@ export default function Terminal({ token }: TerminalProps) {
     setTimeout(tryFit, 50);
 
     // Setup WebSockets
-    // We determine protocol based on current location
-    const wsProtocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-    const wsUrl = `${wsProtocol}//${window.location.host}/api/terminal/ws?token=${token}`;
+    // We determine protocol and host based on current environment variables or location
+    let wsUrl = "";
+    const apiURL = process.env.NEXT_PUBLIC_API_URL;
+    if (apiURL) {
+      const wsProtocol = apiURL.startsWith("https") ? "wss:" : "ws:";
+      const wsHost = apiURL.replace(/^https?:\/\//, "");
+      wsUrl = `${wsProtocol}//${wsHost}/api/terminal/ws?token=${token}`;
+    } else {
+      const wsProtocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+      wsUrl = `${wsProtocol}//${window.location.host}/api/terminal/ws?token=${token}`;
+    }
 
     const ws = new WebSocket(wsUrl);
     wsRef.current = ws;
