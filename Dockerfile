@@ -3,7 +3,8 @@ FROM node:20-alpine AS deps
 WORKDIR /app
 
 COPY package.json package-lock.json* ./
-RUN npm ci --omit=dev
+# Install ALL deps including devDeps — needed for Next.js build (tailwind, postcss, typescript)
+RUN npm ci
 
 # ── Stage 2: builder ─────────────────────────────────────────────────────────
 FROM node:20-alpine AS builder
